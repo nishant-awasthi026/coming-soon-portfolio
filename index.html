@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    
+    <!-- Import Apple-style system fonts -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1A1A1A 100%);
+            color: rgba(255, 255, 255, 0.92);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Main container with glass effect */
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Main content glass card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 3rem;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            animation: cardFloat 2s ease-in-out infinite alternate;
+        }
+
+        /* Glow effect behind the card */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: radial-gradient(circle at top left,
+                rgba(99, 195, 255, 0.15),
+                transparent 70%);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        /* Typography styles */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #fff, rgba(255, 255, 255, 0.8));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        /* Countdown timer styles */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .countdown-value {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .countdown-label {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Email subscription form */
+        .subscribe-form {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .email-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 0.875rem 1rem;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: rgba(99, 195, 255, 0.5);
+            box-shadow: 0 0 20px rgba(99, 195, 255, 0.15);
+        }
+
+        .submit-button {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 0.875rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .submit-button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Social links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Footer signature */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .footer p {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin: 0;
+        }
+
+        /* Animations */
+        @keyframes cardFloat {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .glass-card {
+                padding: 2rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .countdown {
+                gap: 1rem;
+            }
+
+            .countdown-value {
+                font-size: 1.5rem;
+            }
+
+            .subscribe-form {
+                flex-direction: column;
+            }
+
+            .submit-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <canvas class="particles" id="particles"></canvas>
+        
+        <div class="glass-card">
+            <h1>Coming Soon</h1>
+            <p>Once launched, side effects of exploring this portfolio will include sudden urges to copy-paste.</p>
+            
+            <!--<div class="countdown">-->
+            <!--    <div class="countdown-item">-->
+            <!--        <span class="countdown-value" id="days">00</span>-->
+            <!--        <span class="countdown-label">Days</span>-->
+            <!--    </div>-->
+            <!--    <div class="countdown-item">-->
+            <!--        <span class="countdown-value" id="hours">00</span>-->
+            <!--        <span class="countdown-label">Hours</span>-->
+            <!--    </div>-->
+            <!--    <div class="countdown-item">-->
+            <!--        <span class="countdown-value" id="minutes">00</span>-->
+            <!--        <span class="countdown-label">Minutes</span>-->
+            <!--    </div>-->
+            <!--    <div class="countdown-item">-->
+            <!--        <span class="countdown-value" id="seconds">00</span>-->
+            <!--        <span class="countdown-label">Seconds</span>-->
+            <!--    </div>-->
+            <!--</div>-->
+            
+            <form class="subscribe-form">
+                <input type="email" class="email-input" placeholder="Enter your email" required>
+                <button type="submit" class="submit-button">Notify Me</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>made with 🤍 by nishantawasthi</p>
+    </footer>
+
+    <script>
+        // Enhanced particle animation with improved performance
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+
+        function setCanvasSize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        setCanvasSize();
+        window.addEventListener('resize', setCanvasSize);
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.3 - 0.15;
+                this.speedY = Math.random() * 0.3 - 0.15;
+                this.opacity = Math.random() * 0.3 + 0.1;
+                this.growing = Math.random() > 0.5;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Particle size animation
+                if (this.growing) {
+                    this.size += 0.02;
+                    if (this.size > 2) this.growing = false;
+                } else {
+                    this.size -= 0.02;
+                    if (this.size < 0.5) this.growing = true;
+                }
+
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        const particles = Array.from({ length: 70 }, () => new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Enhanced form submission with feedback
+        document.querySelector('.subscribe-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const emailInput = e.target.querySelector('input[type="email"]');
+            const submitButton = e.target.querySelector('button');
+            
+            // Store original button text
+            const originalText = submitButton.textContent;
+            
+            // Show loading state
+            submitButton.textContent = 'Adding...';
+            submitButton.style.opacity = '0.7';
+            submitButton.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                const email = emailInput.value;
+                
+                // Success feedback
+                submitButton.textContent = 'Added! ✓';
+                submitButton.style.background = 'rgba(75, 181, 67, 0.2)';
+                
+                // Reset form
+                setTimeout(() => {
+                    e.target.reset();
+                    submitButton.textContent = originalText;
+                    submitButton.style.background = '';
+                    submitButton.style.opacity = '1';
+                    submitButton.disabled = false;
+                }, 2000);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
